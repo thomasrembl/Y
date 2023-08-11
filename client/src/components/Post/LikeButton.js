@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UidContext } from "../AppContext";
+import { UidContext } from "../Context/AppContext";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useDispatch } from "react-redux";
@@ -12,11 +12,13 @@ const LikeButton = ({ post }) => {
 
   const like = () => {
     dispatch(likePost(post._id, uid));
+
     setLiked(true);
   };
 
   const unlike = () => {
     dispatch(unlikePost(post._id, uid));
+
     setLiked(false);
   };
 

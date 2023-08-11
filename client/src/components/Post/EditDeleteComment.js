@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteComment, editComment } from "../../actions/post.actions";
-import { UidContext } from "../AppContext";
+import { UidContext } from "../Context/AppContext";
 
 const EditDeleteComment = ({ comment, postId }) => {
   const [isAuthor, setisAuthor] = useState(false);

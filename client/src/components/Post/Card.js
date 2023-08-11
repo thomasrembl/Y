@@ -8,7 +8,7 @@ import DeleteCard from "./DeleteCard";
 import LikeButton from "./LikeButton";
 
 const Card = ({ post }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
   const [textUpdate, setTextUpdate] = useState(null);
   const [showComments, setShowComments] = useState(false);

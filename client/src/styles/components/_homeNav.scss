@@ -1,0 +1,43 @@
+
+
+.top-nav-bar{
+    border-right: 1px solid $color-2;
+    border-left: 1px solid $color-2;
+
+
+    .nav-bar-title{
+        padding-left: 20px;
+        padding-top: 20px;
+
+    }
+    .nav-bar-container{
+        margin-top: 10px;
+       display: flex;
+        .nav-bar-btn{
+            cursor: pointer;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            text-align: center;
+            width: 100%;
+
+            button {
+                background: none;
+                border-radius: 0;
+                padding: 10px 0 20px 0;
+
+            }
+
+            .active-thread{
+                border-bottom: 3px solid $color-1;
+                display: inline-block; /* Pour que la bordure occupe seulement la largeur du contenu */
+                padding-bottom: 4px; 
+
+            }
+            &:hover{
+                background: $color-4;
+            }
+            
+
+        }
+    }
+}

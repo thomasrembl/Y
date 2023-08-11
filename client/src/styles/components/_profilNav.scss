@@ -1,0 +1,28 @@
+.thread-type-container{
+    display: flex;
+    justify-content: space-evenly;
+
+    .thread-type{
+        cursor: pointer;
+        text-align: center;
+        width: 100%;
+        padding-top: 20px;
+        
+        button{
+            border-radius: 0;
+            padding: 0;
+            background: none;
+            padding-bottom: 16px;
+            color: $color-2;
+        }
+
+        .active-profil-btn{
+            color: $white;
+            border-bottom: 4px solid $color-1;
+            transform: translateY(-1px);
+        }
+        &:hover {
+            background: $color-4;
+        }
+    }
+}

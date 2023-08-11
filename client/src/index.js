@@ -11,6 +11,8 @@ import { getUsers } from "./actions/users.action";
 // dev tools
 import { composeWithDevTools } from "redux-devtools-extension";
 import { getPosts } from "./actions/post.actions";
+import { ThreadProvider } from "./components/Context/ThreadContext";
+import { ProfilProvider } from "./components/Context/ProfilContext";
 
 const store = createStore(
   rootReducer,
@@ -23,6 +25,10 @@ store.dispatch(getPosts());
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <App />
+    <ProfilProvider>
+      <ThreadProvider>
+        <App />
+      </ThreadProvider>
+    </ProfilProvider>
   </Provider>
 );

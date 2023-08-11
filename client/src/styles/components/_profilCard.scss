@@ -1,0 +1,34 @@
+.profil-card{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .profil-card-left{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        .user-picture{
+            height: 70px;
+            width: 70px;
+            padding: 5px;
+            img{
+                height: 100%;
+                border-radius: 50%;
+                width: 100%;
+            }
+        }
+        h3{
+            color: $white;
+        }
+    }.profil-card-right{
+        cursor: pointer;
+        img{
+            height: 24px;
+            width: 24px;
+            margin-right: 5px;
+        }
+    }
+    &:hover{
+        background: $color-4;
+        border-radius: 30px;
+    }
+}

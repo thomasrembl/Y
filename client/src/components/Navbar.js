@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { UidContext } from "./AppContext";
+import { UidContext } from "./Context/AppContext";
 import Logout from "./Log/Logout";
 
 const Navbar = () => {

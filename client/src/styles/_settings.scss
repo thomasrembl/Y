@@ -15,10 +15,11 @@ $font-1: "font-1", sans-serif;
 $font-2: "font-2", serif;
 $font-3: "font-3", serif;
 
-$color-1: #ff7b77;
-$color-2: #ffd0c4;
+$color-1: #1C9BEF;
+$color-2: #71767A;
 $color-3: rgb(0, 22, 44);
-$color-4: #fdeeee;
+$color-4: #16181D;
+$color-5: #010101;
 $black: rgb(40, 40, 40);
 $white: rgb(253, 253, 253);
 $shadow: rgb(219, 218, 218);
@@ -31,6 +32,7 @@ $shadow: rgb(219, 218, 218);
   outline: none;
   border: none;
   text-decoration: none;
+  
 
   &::selection {
     background: $color-1;
@@ -40,13 +42,14 @@ a,
 a:visited {
   color: $color-3;
 }
+
 input,
 textarea {
   resize: none;
   border-radius: 20px;
   width: 270px;
   font-family: $font-1;
-  background: $white;
+  background: $color-5;
 }
 textarea {
   &:focus {
@@ -55,8 +58,8 @@ textarea {
 }
 button,
 input[type="submit"] {
-  background: $color-2;
-  color: $color-1;
+  background: $color-1;
+  color: $white;
   font-family: $font-3;
   cursor: pointer;
   transition: 0.2s;
@@ -64,11 +67,11 @@ input[type="submit"] {
   padding: 10px 20px;
   cursor: pointer;
   font-size: 1.1rem;
-  border-radius: 20px 6px 20px 20px;
+  border-radius: 20px;
 
   &:hover {
     background: $color-1;
-    color: $color-2;
+    color: $white;
   }
 }
 input[type="checkbox"] {
@@ -86,8 +89,9 @@ i {
 body {
   font-family: $font-2;
   line-height: 1.4rem;
-  background: $white;
-  color: $color-3;
+
+  color: $white;
+  background-color: #010101
 }
 .error {
   color: red;
@@ -96,4 +100,8 @@ body {
 .success {
   color: green;
   font-weight: bold;
+}
+
+.blue {
+  stroke: $color-1;
 }

@@ -1,131 +1,81 @@
 import React, { useState } from "react";
-import LeftNav from "../LeftNav";
 import { useDispatch, useSelector } from "react-redux";
 import UploadImg from "./UploadImg";
-import { updateBio } from "../../actions/user.actions";
-import { dateParser } from "../Utils";
-import FollowHandler from "./FollowHandler";
+import { updateBio, uploadPicture } from "../../actions/user.actions";
+
+//icons
+import { PiCameraPlusBold } from "react-icons/pi";
 
 const UpadateProfil = () => {
   const [bio, setBio] = useState("");
-  const [updateForm, setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.userReducer);
-  const usersData = useSelector((state) => state.usersReducer);
   const error = useSelector((state) => state.errorReducer.userError);
   const dispatch = useDispatch();
-  const [followingPopUp, setFollowingPopUp] = useState(false);
-  const [followersPopUp, setFollowersPopUp] = useState(false);
+  const [file, setFile] = useState();
 
-  const handleUpdate = () => {
-    dispatch(updateBio(userData._id, bio));
-    setUpdateForm(false);
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    if (bio !== userData.bio) {
+      dispatch(updateBio(userData._id, bio));
+    }
+
+    const data = new FormData();
+    data.append("name", userData.pseudo);
+    data.append("userId", userData._id);
+    data.append("file", file);
+
+    dispatch(uploadPicture(data, userData._id));
   };
 
   return (
-    <div className="profil-container">
-      <LeftNav />
-      <h1>Profil de {userData.pseudo}</h1>
-      <div className="update-container">
-        <div className="left-part">
-          <h3>Photo de profil</h3>
-          <img src={userData.picture} alt="user-pic" />
-          <UploadImg />
-          <p>{error.maxSize}</p>
-          <p>{error.format}</p>
-        </div>
-        <div className="right-part">
-          <div className="bio-update">
-            <h3>Bio</h3>
-            {updateForm === false && (
-              <>
-                <p onClick={() => setUpdateForm(!updateForm)}>{userData.bio}</p>
-                <button onClick={() => setUpdateForm(!updateForm)}>
-                  Modifier bio
-                </button>
-              </>
-            )}
-            {updateForm === true && (
-              <>
-                <textarea
-                  type="text"
-                  defaultValue={userData.bio}
-                  onChange={(e) => setBio(e.target.value)}
-                ></textarea>
-                <button onClick={handleUpdate}>Valider modification</button>
-              </>
-            )}
+    <div className="edit-profil-container">
+      <div className="edit-banner">
+        <span className="grey">
+          <div className="icons"></div>
+          <div className="error-banner">
+            <p></p>
           </div>
-          <h4>Membre depuis le : {dateParser(userData.createdAt)}</h4>
-          <h5 onClick={() => setFollowingPopUp(true)}>
-            Abonnements : {userData.following ? userData.following.length : "1"}
-          </h5>
-          <h5 onClick={() => setFollowersPopUp(true)}>
-            Abonnés : {userData.followers ? userData.followers.length : ""}
-          </h5>
+        </span>
+        <div className="user-banner">
+          <img src="./uploads/banner/banniere.jpg" alt="user-banner" />
         </div>
       </div>
-      {followingPopUp && (
-        <div className="popup-profil-container">
-          <div className="modal">
-            <h3>Abonnement</h3>
-            <span className="cross" onClick={() => setFollowingPopUp(false)}>
-              &#10005;
-            </span>
-            <ul>
-              {usersData.map((user) => {
-                for (let i = 0; i < userData.following.length; i++) {
-                  if (user._id === userData.following[i]) {
-                    return (
-                      <li key={user._id}>
-                        <img src={user.picture} alt="user-pic" />{" "}
-                        <h4>{user.pseudo}</h4>
-                        <div className="follow-handler">
-                          <FollowHandler
-                            idToFollow={user._id}
-                            type={"suggestion"}
-                          />
-                        </div>
-                      </li>
-                    );
-                  }
-                }
-                return null;
-              })}
-            </ul>
+      <div className="edit-profil-pic">
+        <span className="grey">
+          <div className="icons-form">
+            <i>
+              <PiCameraPlusBold />
+            </i>
+            <form action="" className="upload-user-pic">
+              <input
+                type="file"
+                id="file"
+                name="file"
+                accept=".jpg, .jpeg, .png"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </form>
           </div>
-        </div>
-      )}
-      {followersPopUp && (
-        <div className="popup-profil-container">
-          <div className="modal">
-            <h3>Abonnées</h3>
-            <span className="cross" onClick={() => setFollowersPopUp(false)}>
-              &#10005;
-            </span>
-            <ul>
-              {usersData.map((user) => {
-                for (let i = 0; i < userData.followers.length; i++) {
-                  if (user._id === userData.followers[i]) {
-                    return (
-                      <li key={user._id}>
-                        <img src={user.picture} alt="user-pic" />{" "}
-                        <h4>{user.pseudo}</h4>
-                        <div className="follow-handler">
-                          <FollowHandler
-                            idToFollow={user._id}
-                            type={"suggestion"}
-                          />
-                        </div>
-                      </li>
-                    );
-                  }
-                }
-                return null;
-              })}
-            </ul>
+          <div className="error-profil">
+            <p>{error.maxSize}</p>
+            <p>{error.format}</p>
           </div>
+        </span>
+        <div className="user-profil-pic">
+          <img src={userData.picture} alt="user-profil-pic" />
         </div>
-      )}
+      </div>
+      <div className="edit-content">
+        <h2>{userData.pseudo}</h2>
+        <textarea
+          type="text"
+          defaultValue={userData.bio}
+          onChange={(e) => setBio(e.target.value)}
+        ></textarea>
+        <div>
+          <button onClick={handleUpdate}>Valider Modification</button>
+        </div>
+      </div>
     </div>
   );
 };
