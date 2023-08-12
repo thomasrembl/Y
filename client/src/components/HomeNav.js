@@ -14,7 +14,7 @@ const HomeNav = () => {
   const custom = () => {
     setForYouThread(false);
     setCustomThread(true);
-    setThreadType("custom");
+    setThreadType("user-follow");
   };
 
   return (

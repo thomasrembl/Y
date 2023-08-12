@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useMatch } from "react-router-dom";
 import { UidContext } from "./Context/AppContext";
+import NewPostForm from "./Post/NewPostForm";
 import ProfilCard from "./Profil/ProfilCard";
 
 const LeftNav = () => {
@@ -10,6 +11,7 @@ const LeftNav = () => {
   });
 
   const uid = useContext(UidContext);
+  const [newPostPopUp, setNewPostPopUp] = useState(false);
 
   const matchTrending = useMatch("/trending");
 
@@ -82,11 +84,21 @@ const LeftNav = () => {
             </NavLink>
           </div>
           <div className="post-btn">
-            <button>Poster</button>
+            <button onClick={() => setNewPostPopUp(true)}>Poster</button>
           </div>
         </div>
         <div className="profil">{uid ? <ProfilCard /> : null}</div>
       </div>
+      {newPostPopUp && (
+        <div className="popup-left-nav-container">
+          <div className="modal">
+            <span className="cross" onClick={() => setNewPostPopUp(false)}>
+              &#10005;
+            </span>
+            <NewPostForm />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

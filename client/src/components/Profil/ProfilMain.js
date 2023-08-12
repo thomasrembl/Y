@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { UidContext } from "../Context/AppContext";
+
 import { dateParser } from "../Utils";
 import { NavLink } from "react-router-dom";
 import ProfilNav from "./ProfilNav";
@@ -11,7 +11,6 @@ import UpdateProfil from "./UpadateProfil";
 import { FaArrowLeft } from "react-icons/fa";
 
 const ProfilMain = () => {
-  const uid = useContext(UidContext);
   const userData = useSelector((state) => state.userReducer);
   const usersData = useSelector((state) => state.usersReducer);
   const [followingPopUp, setFollowingPopUp] = useState(false);

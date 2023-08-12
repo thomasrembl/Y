@@ -13,6 +13,7 @@ const Thread = ({ type }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postReducer);
   const uid = useContext(UidContext);
+  const userData = useSelector((state) => state.userReducer);
   // const userPosts = useSelector((state) => state.threadReducer.userPosts);
 
   const loadMore = () => {
@@ -25,6 +26,12 @@ const Thread = ({ type }) => {
   };
   function filterPostsByUid(posts, uid) {
     return posts.filter((post) => post.posterId === uid);
+  }
+
+  function filterPostsByFollowers(posts, userFollowers) {
+    return posts.filter((post) => {
+      return userFollowers.includes(post.posterId);
+    });
   }
 
   function filterPostsByCommenterId(posts, uid) {
@@ -53,7 +60,7 @@ const Thread = ({ type }) => {
     }
     window.addEventListener("scroll", loadMore);
     return () => window.removeEventListener("scroll", loadMore);
-  }, [loadPost, dispatch, count]);
+  }, [loadPost, dispatch, count, userData.following, posts]);
 
   return (
     <div className="thread-container">
@@ -61,6 +68,16 @@ const Thread = ({ type }) => {
         <ul>
           {!isEmpty(posts[0]) &&
             posts.map((post) => (
+              <li key={post._id}>
+                <Card post={post} />
+              </li>
+            ))}
+        </ul>
+      )}
+      {type === "user-follow" && (
+        <ul>
+          {!isEmpty(posts[0]) &&
+            filterPostsByFollowers(posts, userData.following).map((post) => (
               <li key={post._id}>
                 <Card post={post} />
               </li>
