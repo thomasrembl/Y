@@ -1,31 +1,38 @@
 import React, { useContext, useEffect } from "react";
-import Log from "../components/Log";
+import { useLocation, useParams } from "react-router-dom";
 import { UidContext } from "../components/Context/AppContext";
-// import UpadateProfil from "../components/Profil/UpadateProfil";
-import LeftNav from "../components/LeftNav";
-import RightSide from "../components/RightSide";
-import ProfilMain from "../components/Profil/ProfilMain";
-import Thread from "../components/Thread";
 import { useProfil } from "../components/Context/ProfilContext";
+import Header from "../components/Header";
 
-const Profil = () => {
+import Log from "../components/Log";
+import ProfilMain from "../components/Profil/ProfilMain";
+import RightSide from "../components/RightSide";
+import Thread from "../components/Thread";
+
+const AllProfil = () => {
   const { profilType } = useProfil();
   const { setProfilType } = useProfil();
+  const location = useLocation();
 
   useEffect(() => {
-    document.title = "Y / Profil";
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  useEffect(() => {
+    document.title = "Y / Profil ";
     setProfilType("user-post");
   }, [setProfilType]);
 
   const uid = useContext(UidContext);
+  const { userId } = useParams();
   return (
     <div className="profil-page">
       {uid ? (
         <>
-          <LeftNav />
+          <Header />
           <div className="main">
             <ProfilMain />
-            <Thread type={profilType} />
+            <Thread type={profilType} userid={userId} />
           </div>
           <RightSide />
         </>
@@ -33,7 +40,7 @@ const Profil = () => {
         <div className="log-container">
           <Log signin={false} signup={true} />
           <div className="img-container">
-            <img src="./img/log.svg" alt="img-log" />
+            <img src="/img/log.svg" alt="img-log" />
           </div>
         </div>
       )}
@@ -41,4 +48,4 @@ const Profil = () => {
   );
 };
 
-export default Profil;
+export default AllProfil;

@@ -1,20 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../actions/post.actions";
 
-import { UidContext } from "./Context/AppContext";
 import Card from "./Post/Card";
 
 import { isEmpty } from "./Utils";
 
-const Thread = ({ type }) => {
+const Thread = ({ type, userid }) => {
   const [loadPost, setLoadPost] = useState(true);
   const [count, setCount] = useState(10);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postReducer);
-  const uid = useContext(UidContext);
+  const Allposts = useSelector((state) => state.allPostsReducer);
   const userData = useSelector((state) => state.userReducer);
-  // const userPosts = useSelector((state) => state.threadReducer.userPosts);
+  const userId = userid;
 
   const loadMore = () => {
     if (
@@ -24,8 +23,8 @@ const Thread = ({ type }) => {
       setLoadPost(true);
     }
   };
-  function filterPostsByUid(posts, uid) {
-    return posts.filter((post) => post.posterId === uid);
+  function filterPostsByUid(posts, userId) {
+    return posts.filter((post) => post.posterId === userId);
   }
 
   function filterPostsByFollowers(posts, userFollowers) {
@@ -66,7 +65,8 @@ const Thread = ({ type }) => {
     <div className="thread-container">
       {type === "forYou" && (
         <ul>
-          {!isEmpty(posts[0]) &&
+          {Array.isArray(posts) &&
+            !isEmpty(posts[0]) &&
             posts.map((post) => (
               <li key={post._id}>
                 <Card post={post} />
@@ -76,52 +76,75 @@ const Thread = ({ type }) => {
       )}
       {type === "user-follow" && (
         <ul>
-          {!isEmpty(posts[0]) &&
-            filterPostsByFollowers(posts, userData.following).map((post) => (
+          {Array.isArray(Allposts) &&
+          !isEmpty(filterPostsByFollowers(Allposts, userData.following)[0]) ? (
+            filterPostsByFollowers(Allposts, userData.following).map((post) => (
               <li key={post._id}>
                 <Card post={post} />
               </li>
-            ))}
+            ))
+          ) : (
+            <h2 className="no-post">
+              Suivez de nouvelles personnes pour voir des Y
+            </h2>
+          )}
         </ul>
       )}
       {type === "user-post" && (
         <ul>
-          {!isEmpty(posts[0]) &&
-            filterPostsByUid(posts, uid).map((post) => (
+          {console.log("uid : ", userId)}
+          {Array.isArray(Allposts) &&
+          !isEmpty(filterPostsByUid(Allposts, userId)[0]) ? (
+            filterPostsByUid(Allposts, userId).map((post) => (
               <li key={post._id}>
                 <Card post={post} />
               </li>
-            ))}
+            ))
+          ) : (
+            <h2 className="no-post">C'est bien vide ici ...</h2>
+          )}
         </ul>
       )}
       {type === "user-comment" && (
         <ul>
-          {!isEmpty(posts[0]) &&
-            filterPostsByCommenterId(posts, uid).map((post) => (
+          {Array.isArray(Allposts) &&
+          !isEmpty(filterPostsByCommenterId(Allposts, userId)[0]) ? (
+            filterPostsByCommenterId(Allposts, userId).map((post) => (
               <li key={post._id}>
                 <Card post={post} />
               </li>
-            ))}
+            ))
+          ) : (
+            <h2 className="no-post">C'est bien vide ici ...</h2>
+          )}
         </ul>
       )}
       {type === "user-media" && (
         <ul>
-          {!isEmpty(posts[0]) &&
-            filterPostsMedia(posts, uid).map((post) => (
+          {Array.isArray(Allposts) &&
+          !isEmpty(filterPostsMedia(Allposts, userId)[0]) ? (
+            filterPostsMedia(Allposts, userId).map((post) => (
               <li key={post._id}>
                 <Card post={post} />
               </li>
-            ))}
+            ))
+          ) : (
+            <h2 className="no-post">C'est bien vide ici ...</h2>
+          )}
         </ul>
       )}
       {type === "user-like" && (
         <ul>
-          {!isEmpty(posts[0]) &&
-            filterPostsLike(posts, uid).map((post) => (
+          {Array.isArray(Allposts) &&
+          !isEmpty(filterPostsLike(Allposts, userId)[0]) ? (
+            filterPostsLike(Allposts, userId).map((post) => (
               <li key={post._id}>
                 <Card post={post} />
               </li>
-            ))}
+            ))
+          ) : (
+            <h2 className="no-post">C'est bien vide ici ...</h2>
+          )}
         </ul>
       )}
     </div>

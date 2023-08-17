@@ -2,7 +2,9 @@ const router = require("express").Router();
 const authController = require("../controllers/auth.controller");
 const userController = require("../controllers/user.controller");
 const uploadController = require("../controllers/upload.controller");
+const uploadBannerController = require("../controllers/uploadBanner.controller");
 const multer = require("multer");
+
 const upload = multer();
 
 // auth
@@ -20,5 +22,10 @@ router.patch("/unfollow/:id", userController.unfollow);
 
 // upload
 router.post("/upload", upload.single("file"), uploadController.uploadProfil);
+router.post(
+  "/upload/banner",
+  upload.single("banner"),
+  uploadBannerController.uploadBannerProfil
+);
 
 module.exports = router;

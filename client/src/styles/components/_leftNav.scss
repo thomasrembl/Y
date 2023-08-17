@@ -1,9 +1,13 @@
 .left-nav{
+  background-color: black;
+  @media screen and(max-width: 1050px){
+    display: none;
+  }
   position: relative;
-  width: 356px;
+  width: 320px;
   .left-nav-container{
     display: flex;
-    height: 100vh;
+    height: 94vh;
     flex-direction: column;
     justify-content: space-between;
     padding: 30px;
@@ -27,6 +31,10 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+
+        .nav-link{
+          width: fit-content;
+        }
          
         .active-left-nav{
           color: $color-1!important;
@@ -36,9 +44,13 @@
           display: flex;
           justify-content: flex-start;
           align-items: center;
+
           gap: 10px;
           h3{
             color: $white;
+            // @media screen and(max-width: 1200px) {
+            //   display: none;
+            // }
           }
         }
       }
@@ -96,6 +108,7 @@
         right: 25px;
         transition: 0.1s;
         cursor: pointer;
+        z-index: 100;
 
         &:hover {
           transform: scale(1.07);

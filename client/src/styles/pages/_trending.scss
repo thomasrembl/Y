@@ -1,7 +1,7 @@
 .trending-page {
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 
 
 
@@ -9,6 +9,9 @@
 
   .main {
     max-width: 600px;
+    @media screen and(max-width: 815px) {
+      max-width: none;
+    }
     flex: 1;
     .home-header {
       margin:auto;

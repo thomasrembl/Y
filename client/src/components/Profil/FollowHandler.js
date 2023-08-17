@@ -33,7 +33,7 @@ const FollowHandler = ({ idToFollow, type }) => {
             <button className="follow-btn">Abonné</button>
           )}
           {type === "card" && (
-            <img src="./img/icons/checked.svg" alt="checked" />
+            <img src="/img/icons/checked.svg" alt="checked" />
           )}
         </span>
       )}
@@ -42,7 +42,7 @@ const FollowHandler = ({ idToFollow, type }) => {
           {type === "suggestion" && (
             <button className="follow-btn">Suivre</button>
           )}
-          {type === "card" && <img src="./img/icons/check.svg" alt="check" />}
+          {type === "card" && <img src="/img/icons/check.svg" alt="check" />}
         </span>
       )}
     </>

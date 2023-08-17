@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import LeftNav from "../components/LeftNav";
+
 import Card from "../components/Post/Card";
 import { isEmpty } from "../components/Utils";
 import RightSide from "../components/RightSide";
+import { useLocation } from "react-router-dom";
+import Header from "../components/Header";
 
 const Trending = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   useEffect(() => {
     document.title = "Y / Tendances";
   });
@@ -14,7 +21,7 @@ const Trending = () => {
 
   return (
     <div className="trending-page">
-      <LeftNav />
+      <Header />
       <div className="main">
         <ul>
           {!isEmpty(trendList[0]) &&

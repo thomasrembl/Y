@@ -7,7 +7,7 @@ const ProfilCard = () => {
   const userData = useSelector((state) => state.userReducer);
   return (
     <div className="profil-card">
-      <NavLink to="/profil" exact="true">
+      <NavLink to={`/profil/${userData._id}`} exact="true">
         <div className="profil-card-left">
           <div className="user-picture">
             <img src={userData.picture} alt="" />

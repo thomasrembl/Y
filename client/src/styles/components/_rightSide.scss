@@ -1,14 +1,16 @@
 .right-side {
     margin-left: 20px;
+    margin-right: 50px;
     position: relative;
-    width: 356px;
-    @media screen and(max-width: 990px) {
+    width: 320px;
+
+    @media screen and(max-width: 815px) {
       display: none;
     }
   
     .right-side-container {
       position: sticky;
-      top: 10px;
+      top: 60px;
     
     }
   }

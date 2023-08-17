@@ -23,9 +23,14 @@
 
     .user-hint {
       display: grid;
-      grid-template-columns: 20% 50% 30%;
+      grid-template-columns: 24% 68%;
       align-items: center;
       margin: 8px 0;
+      a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
       img {
         height: 46px;

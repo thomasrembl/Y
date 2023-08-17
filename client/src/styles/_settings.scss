@@ -40,7 +40,7 @@ $shadow: rgb(219, 218, 218);
 }
 a,
 a:visited {
-  color: $color-3;
+  color: $white;
 }
 
 input,
@@ -100,6 +100,10 @@ body {
 .success {
   color: green;
   font-weight: bold;
+}
+
+.main {
+  margin-top: 50px;
 }
 
 .blue {

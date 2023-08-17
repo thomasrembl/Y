@@ -1,7 +1,7 @@
 .home {
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 
 
   
@@ -10,6 +10,19 @@
   .main {
     max-width: 600px;
     flex: 1;
+    @media screen and(max-width: 815px) {
+      max-width: none;
+    }
+    .thread-container{
+      position: relative;
+      .no-post{
+        height: 30vh;
+        border: 1px solid #71767A;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
     .home-header {
       margin:auto;
       text-align: center;

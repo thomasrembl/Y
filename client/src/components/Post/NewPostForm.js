@@ -115,7 +115,7 @@ const NewPostForm = () => {
               <div className="icon">
                 {isEmpty(video) && (
                   <>
-                    <img src="./img/icons/picture.svg" alt="img" />
+                    <img src="/img/icons/picture.svg" alt="img" />
                     <input
                       type="file"
                       id="file-upload"

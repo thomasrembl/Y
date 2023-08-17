@@ -37,11 +37,45 @@
                 z-index: 10;
                 height: 100%;
                 width: 100%;
+                .icons-form{
+                    position: absolute;
+                    cursor: pointer;
+                    width: 42px;
+                    height: 42px;
+                    background-color: rgba($color-2, $alpha: .8);
+                    border-radius: 50%;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+
+                    &:hover{
+                        background-color: rgba($color-2, $alpha: .9);
+                    }
+                    i{
+                        position: absolute;
+                        font-size: 30px;
+                        width: 22px;
+                        height: 22px;
+                        transform: translate(5px, 5px);
+                    }
+                    .upload-banner{
+                        cursor: pointer;
+                        input{
+                            cursor: pointer;
+                            width: 42px;
+                            height: 42px;
+                            opacity: 0;
+                        }
+                        
+                    }
+                }
                 .error-banner{
+                    width: max-content;
                     position: absolute;
                     bottom: 0;
                     left: 50%;
                     transform: translate(-50%, 130%);
+                    color: red;
                 }
             }
             .user-banner{

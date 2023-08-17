@@ -1,23 +1,35 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UploadImg from "./UploadImg";
-import { updateBio, uploadPicture } from "../../actions/user.actions";
+import {
+  updateBio,
+  uploadPicture,
+  uploadBanner,
+} from "../../actions/user.actions";
 
 //icons
 import { PiCameraPlusBold } from "react-icons/pi";
 
-const UpadateProfil = () => {
+const UpdateProfil = () => {
   const [bio, setBio] = useState("");
   const userData = useSelector((state) => state.userReducer);
   const error = useSelector((state) => state.errorReducer.userError);
   const dispatch = useDispatch();
   const [file, setFile] = useState();
+  const [banner, setBanner] = useState();
+
+  const handleBanner = (e) => {
+    e.preventDefault();
+
+    const dataBanner = new FormData();
+    dataBanner.append("name", userData.pseudo);
+    dataBanner.append("userId", userData._id);
+    dataBanner.append("banner", banner);
+
+    dispatch(uploadBanner(dataBanner, userData._id));
+  };
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    if (bio !== userData.bio) {
-      dispatch(updateBio(userData._id, bio));
-    }
 
     const data = new FormData();
     data.append("name", userData.pseudo);
@@ -27,19 +39,39 @@ const UpadateProfil = () => {
     dispatch(uploadPicture(data, userData._id));
   };
 
+  const handleBio = (e) => {
+    e.preventDefault();
+    dispatch(updateBio(userData._id, bio));
+  };
+
   return (
     <div className="edit-profil-container">
       <div className="edit-banner">
         <span className="grey">
-          <div className="icons"></div>
+          <div className="icons-form">
+            <i>
+              <PiCameraPlusBold />
+            </i>
+            <form action="" onSubmit={handleBanner} className="upload-banner">
+              <input
+                type="file"
+                id="banner"
+                name="banner"
+                accept=".jpg, .jpeg, .png"
+                onChange={(e) => setBanner(e.target.files[0])}
+              />
+            </form>
+          </div>
           <div className="error-banner">
-            <p></p>
+            <p>{error.maxSize}</p>
+            <p>{error.format}</p>
           </div>
         </span>
         <div className="user-banner">
-          <img src="./uploads/banner/banniere.jpg" alt="user-banner" />
+          <img src={userData.banner} alt="user-banner" />
         </div>
       </div>
+
       <div className="edit-profil-pic">
         <span className="grey">
           <div className="icons-form">
@@ -56,10 +88,6 @@ const UpadateProfil = () => {
               />
             </form>
           </div>
-          <div className="error-profil">
-            <p>{error.maxSize}</p>
-            <p>{error.format}</p>
-          </div>
         </span>
         <div className="user-profil-pic">
           <img src={userData.picture} alt="user-profil-pic" />
@@ -73,11 +101,19 @@ const UpadateProfil = () => {
           onChange={(e) => setBio(e.target.value)}
         ></textarea>
         <div>
-          <button onClick={handleUpdate}>Valider Modification</button>
+          <button
+            onClick={(e) => {
+              handleUpdate(e);
+              handleBanner(e);
+              handleBio(e);
+            }}
+          >
+            Valider Modification
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default UpadateProfil;
+export default UpdateProfil;
